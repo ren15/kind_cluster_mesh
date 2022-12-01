@@ -8,5 +8,3 @@ apt install iputils-ping iproute2
 
 
 
-
-
