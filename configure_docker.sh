@@ -1,4 +1,5 @@
-set -xe
+#!/bin/bash
+set -euo pipefail
 
 sudo apt update && sudo apt install -y docker.io
 
@@ -6,8 +7,13 @@ sudo usermod -aG docker ubuntu
 
 sudo su ubuntu 
 
-docker info | grep 'Cgroup Version'
+if [[ $(docker info | grep 'Cgroup Version: 1' | wc -l ) -eq 0 ]];then
+    echo "need cgroup v1"
+    exit 1
+fi
 
+sudo sysctl fs.inotify.max_user_instances=100000
+sudo sysctl fs.inotify.max_user_watches=5242880
 
 
 docker run -d --name=netdata \
@@ -41,7 +47,5 @@ sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
 sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
 rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 
-
-cilium install
 
 
