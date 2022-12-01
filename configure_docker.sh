@@ -14,6 +14,7 @@ fi
 
 sudo sysctl fs.inotify.max_user_instances=100000
 sudo sysctl fs.inotify.max_user_watches=5242880
+sudo mount bpffs /sys/fs/bpf -t bpf
 
 
 docker run -d --name=netdata \

@@ -18,6 +18,7 @@ function info() {
     echo "=> ${1}"
 }
 
+
 pushd "${ROOT}" > /dev/null
 
 info "Creating the clusters..."
