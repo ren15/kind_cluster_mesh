@@ -42,7 +42,13 @@ cilium clustermesh status --context "${CLUSTER_2_CONTEXT}" --wait
 info "Deploying the test application..."
 kubectl config use "${CLUSTER_1_CONTEXT}"
 kubectl apply -f "${ROOT}/common/rebel-base.yaml" -f "${ROOT}/common/cluster1.yaml"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply -f k8s/dashboard
+
 kubectl config use "${CLUSTER_2_CONTEXT}"
 kubectl apply -f "${ROOT}/common/rebel-base.yaml" -f "${ROOT}/common/cluster2.yaml"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply -f k8s/dashboard
+
 
 popd > /dev/null
